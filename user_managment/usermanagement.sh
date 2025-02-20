@@ -69,8 +69,7 @@ fi
               log_message "User $user is not from the $group group so user cann't be deleted"
          else 
           userdel $user
-          read -p "Do want to delete the group also:" QA
-          if [[ ${UID} -ne 0 ]]; then
+          if sudo -lU "$user" &>/dev/null; then
               log_message "User $user deleted and $group group can not be deleted as user don't have root privileges"
           else
               log_message "Group and user were removed"
